@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { FacebookService } from '../services/facebook.service';
+import { FormBuilder, FormGroup, Validators, FormControl } from "@angular/forms";
+
 
 @Component({
   selector: 'app-home',
@@ -7,8 +10,15 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  
 
+  constructor(private service: FacebookService) { }
+
+
+ 
+ 
+
+  
   ngOnInit() {
   }
 

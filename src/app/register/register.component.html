@@ -1,0 +1,33 @@
+
+
+<div class="d-flex justify-content-center" class="container">
+        <!-- Default form login -->
+        
+        <form  class="text-center border border-light p-5 col-10">
+        
+            <p class="h4 mb-4">Register</p>
+
+                 <div class="container">
+            <!-- Email -->
+        
+            <input type="email" name="email" [(ngModel)]="email" class="form-control mb-4" placeholder="E-mail">
+            <!-- UserName -->
+            <input type="name" name="username" [(ngModel)]="username" class="form-control mb-4" placeholder="User Name">
+          
+            <!-- Password -->
+            <input type="password" name="password" [(ngModel)]="password"  class="form-control mb-4" placeholder="Password">
+          
+            <!-- </div> -->
+        </div>
+        
+            <!-- Sign in button -->
+            <button mdbBtn color="info" block="true" class="my-4" (click)="Register()" type="submit" >Register</button>
+          
+           
+            <button type="button" mdbBtn color="info" mdbWavesEffect  routerLink="/login" class="pt-2">Login</button>
+          
+    </form>
+   
+     
+          <!-- Default form login -->
+        </div>
