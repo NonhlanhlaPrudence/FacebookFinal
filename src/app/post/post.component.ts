@@ -8,6 +8,7 @@ class Post{
   content: string;
   comments?: string[];
 }
+
 @Component({
   selector: 'app-post',
   templateUrl: './post.component.html',
@@ -17,37 +18,60 @@ export class PostComponent implements OnInit {
   //validation
   validatingForm: FormGroup;
 
-  id=  0;
-post:string='';
+  // name: string = '';
+  // message: string = '';
+  // email:string='';
+
+id=  0;
+//post:string='';
 posts : Post[] = [];
 comment: string;
 public oneAtTime: boolean=true;
 
+
 constructor(private service: FacebookService) { }
 
-  add_post(){
-    console.log(this.post );
+  
+//   add_post(){
+//   this.service.addPost(this.validatingForm.value).subscribe(res =>{
+// this.posts.push(this.validatingForm.value);
+// console.log(this.validatingForm)
+//     console.log(res)
+//   });
+//   }
+ //data type
+ title: any;
+ name: any;
+ content: any;
+ message = '';
 
-    let myLocalPost = {
-      id: ++this.id,
-      content: this.post,
-      comments: []
-    }
-    
-    this.posts.push( myLocalPost );
-   
+
+//posts array
+post = [];
+
+
+  //function for creating data
+  addModalForm(title, content){
+    this.service.addPost(this.title,this.content).subscribe(post=>
+      {
+        console.log(post)
+      })
+    console.log([this.title ,this.content]),
+    this.post.push({ title: this.title  ,content: this.content})
   }
  
 delete_post(i){
 
 
 }
+// Add comments
 add_comment(i,comment){
   this.posts[ i ].comments.push( comment.value );
   this.comment= '';
   console.log(this.posts[i]);
 }
 
+//Delete comments
 delete_comment(i,comment){
   this.posts[ i ].comments.pop();
   this.comment= '';
@@ -55,14 +79,9 @@ delete_comment(i,comment){
 }
 
   ngOnInit() {
-
-    this.validatingForm = new FormGroup({
-      contactFormModalName: new FormControl('', Validators.required),
-      contactFormModalEmail: new FormControl('', Validators.email),
-      contactFormModalSubject: new FormControl('', Validators.required),
-      contactFormModalMessage: new FormControl('', Validators.required)
-    });
   }
+
+  //Like and dislike button
   numberOfLikes: number = 0;
   likeButtonClick()
   {
@@ -76,21 +95,6 @@ delete_comment(i,comment){
 
 
 
-  get contactFormModalName() {
-    return this.validatingForm.get('contactFormModalName');
-  }
-
-  get contactFormModalEmail() {
-    return this.validatingForm.get('contactFormModalEmail');
-  }
-
-  get contactFormModalSubject() {
-    return this.validatingForm.get('contactFormModalSubject');
-  }
-
-  get contactFormModalMessage() {
-    return this.validatingForm.get('contactFormModalMessage');
-  }
 
 }
 

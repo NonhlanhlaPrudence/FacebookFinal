@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit {
 
     this.service.AdminLogIn(this.username, this.password).subscribe(Response => {
       console.log(Response);
+     // if(Response === '200')
     });
 
   }

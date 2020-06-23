@@ -1,6 +1,59 @@
-<div class="container">
+<app-navbar></app-navbar>
+
+<!-- modal form for adding post details on a table -->
+<div class="row d-flex justify-content-center modalWrapper mt-5">
+  <div mdbModal #modalAdd="mdbModal" class="modal fade addNewInputs" id="modalAdd" tabindex="-1" role="dialog"aria-labelledby="modalAdd"aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header text-center">
+          <h4 class="modal-title w-100 font-weight-bold text-default ml-5">Add Post details</h4>
+
+          <!-- clickable button for hiding the form details -->
+          <button type="button" class="close text-default" (click)="modalAdd.hide()" aria-label="Close">
+            <span aria-hidden="true"></span>
+          </button>
+        </div>
+
+        <!-- specific body form inputing adding post details on the table  -->
+        <div class="modal-body mx-3">
+          <div>
+            <div class="md-form mb-5">
+              <input type="text" [(ngModel)]="title" id="inputtitle" class="form-control validate" mdbInput>
+              <label data-error="wrong" data-success="right" for="inputTitle">Title</label>
+            </div>
+
+        
+           <!--Textarea with icon prefix-->
+           <div class="md-form">
+            <mdb-icon fas icon="pencil-alt" class="prefix"></mdb-icon>
+            <textarea type="text" [(ngModel)]="content"  for="inputContent" id="form8" class="md-textarea form-control" mdbInput></textarea>
+             <label for="form8">content</label>
+          </div>
+          </div>
+        </div>
+
+        <!--button for adding post details on the table  -->
+        <div class="modal-footer d-flex justify-content-center buttonAddFormWrapper">
+          <button mdbBtn color="default" rounded="true" data-toggle="modal"  data-target="#basicExampleclass=" class="buttonAdd" data-dismiss="modal"
+            (click)="addModalForm(addForm, modalAdd)" (click)=modalAdd.hide()>Add Post
+            <i class="fas fa-paper-plane-o ml-1"></i>
+          </button>
+        </div> 
+    </div>
+  </div>
+</div>
+ 
+<!-- add button for displaying the modal form  -->
+  <div class="text-center" style="align-content: center">
+    <a mdbBtn color="default" data-toggle="modal"  style="align-content: center;" data-target="#basicExampleclass="  rounded="true" size="sm" (click)="modalAdd.show()" data-target="#modalAdd" mdbWavesEffect>
+      Create Post
+      </a>
+  </div>
+  
+
+  <div class="container">
     <!-- Card -->
-<mdb-card>
+<mdb-card class="card" *ngFor="let p of post;" class="mt-5" >
     <div class="view rgba-white-slight waves-light" mdbWavesEffect>
      
       <a>
@@ -11,112 +64,42 @@
     <mdb-card-body>
       <!--Title-->
       <mdb-card-title>
-        <h4>Card Title</h4>
+        <h2> Title : {{p.title}}</h2>
       </mdb-card-title>
   
       <!--Text-->
-      <mdb-card-text> POST YOUR CONTENT HERE
+      <mdb-card-text>
+      <h3> Content : {{p.content}}</h3>  
       </mdb-card-text>
+      <br>
+
+      
+      
+          <!--comment icon  -->
+          <form>
+            <div class="form-group">
+              <label for="formGroupExampleInput"><h3>comments</h3></label>
+              <input type="text" id="form1" class="form-control" name="comment" #comment placeholder="add comment">
+            </div>
+          </form> 
+          <button class="btn btn-primary" (click)="add_comment(i, comment)">Comments</button> 
+          <hr>
+          <p  *ngFor="let comment of posts.comments">{{comment}}<button type="button" class="btn btn-danger" (click)="delete_comment(i, comment)">Delete comment</button></p>
+          <!-- <div class="fas">
+            <a>
+              <textarea name="comment" #comment></textarea>
+              <mdb-icon fas icon="comment" (click)="add_comment(i, comment)" data-target="#modalAdd"></mdb-icon>
+               <p *ngFor="let comment of post.comments">{{comment}}  </p>
+            </a>
+          </div> -->
+      
+
       <div class="container">
+          <!-- delete icons -->
+          <mdb-icon  size="2x" style="float: right; padding-left: 10px" fas icon="trash" (click)="Delete()"></mdb-icon>
+
+           <!-- like icons -->
         <p class="like">{{numberOfLikes}}</p>
        <mdb-icon far icon="thumbs-down" (click)="dislikeButtonClick()" size="2x" style="float: right; padding-left: 10px"> </mdb-icon>
       <mdb-icon far class="thumbs-up" icon="thumbs-up" (click)="likeButtonClick()" size="2x" style="float: right; padding-right: 10px"></mdb-icon>
-   
-         </div>
-     
-
-      <button type="button" mdbBtn color="default" rounded="true" data-toggle="modal" data-target="#basicExample"
-      (click)="frame.show()" mdbWavesEffect>ADD YOUR POST 
-    </button>
-
-<div mdbModal #frame="mdbModal" class="modal fade left" id="frameModalTop" tabindex="-1" role="dialog"
-   aria-labelledby="myModalLabel" aria-hidden="true">
-<div class="modal-dialog" role="document">
-  <div class="modal-content">
-    <div class="modal-header text-center">
-      <h4 class="modal-title w-100 font-weight-bold">Write to us</h4>
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="frame.hide()">
-        <span aria-hidden="true">&times;</span>
-      </button>
-    </div>
-    <div class="modal-body mx-3">
-      <div class="md-form mb-5">
-        <mdb-icon fas icon="user" class="prefix grey-text"></mdb-icon>
-        <input type="text" id="form34" class="form-control" mdbInput mdbValidate [formControl]="contactFormModalName">
-        <label for="form34">TITLE</label>
-        <mdb-error
-          *ngIf="contactFormModalName.invalid && (contactFormModalName.dirty || contactFormModalName.touched)">Input
-          invalid
-        </mdb-error>
-        <mdb-success
-          *ngIf="contactFormModalName.valid && (contactFormModalName.dirty || contactFormModalName.touched)">Input
-          valid
-        </mdb-success>
-      </div>
-
-      <div class="md-form mb-5">
-        <mdb-icon fas icon="envelope" class="prefix grey-text"></mdb-icon>
-        <input type="email" id="form29" class="form-control" mdbInput mdbValidate
-               [formControl]="contactFormModalEmail">
-        <label for="form29">Your email</label>
-        <mdb-error
-          *ngIf="contactFormModalEmail.invalid && (contactFormModalEmail.dirty || contactFormModalEmail.touched)">
-          Input invalid
-        </mdb-error>
-        <mdb-success
-          *ngIf="contactFormModalEmail.valid && (contactFormModalEmail.dirty || contactFormModalEmail.touched)">Input
-          valid
-        </mdb-success>
-      </div>
-
-      <div class="md-form mb-5">
-        <mdb-icon fas icon="tag" class="prefix grey-text"></mdb-icon>
-        <input type="text" id="form32" class="form-control" mdbInput mdbValidate
-               [formControl]="contactFormModalSubject">
-        <label for="form32">Subject</label>
-        <mdb-error
-          *ngIf="contactFormModalSubject.invalid && (contactFormModalSubject.dirty || contactFormModalSubject.touched)">
-          Input invalid
-        </mdb-error>
-        <mdb-success
-          *ngIf="contactFormModalSubject.valid && (contactFormModalSubject.dirty || contactFormModalSubject.touched)">
-          Input valid
-        </mdb-success>
-      </div>
-
-      <div class="md-form">
-        <mdb-icon fas icon="pencil-alt" class="prefix grey-text"></mdb-icon>
-        <textarea type="text" id="form8" class="md-textarea form-control" rows="1" mdbInput mdbValidate
-                  [formControl]="contactFormModalMessage"></textarea>
-        <label for="form8">Your message</label>
-        <mdb-error
-          *ngIf="contactFormModalMessage.invalid && (contactFormModalMessage.dirty || contactFormModalMessage.touched)">
-          Input invalid
-        </mdb-error>
-        <mdb-success
-          *ngIf="contactFormModalMessage.valid && (contactFormModalMessage.dirty || contactFormModalMessage.touched)">
-          Input valid
-        </mdb-success>
-      </div>
-
-    </div>
-    <div class="modal-footer d-flex justify-content-center">
-      <button mdbBtn color="unique" class="waves-light" mdbWavesEffect>Send
-        <mdb-icon far icon="paper-plane" class="ml-1"></mdb-icon>
-      </button>
-    </div>
-  </div>
-</div>
-</div>
-    </mdb-card-body>
-  </mdb-card>
-  <!-- Card -->
-</div>
-
-
-
-
-
-
-
-
+   </div>

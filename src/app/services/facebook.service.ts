@@ -10,6 +10,8 @@ export class FacebookService {
   register_url = "http://10.1.0.96:4000/user_reg";
   url = "http://10.1.0.96:4000/all";
   login_url = "http://10.1.0.96:4000/user_login";
+  post_url = "http://10.1.0.96:4000/user_posts";
+  get_url = "http://10.1.0.96:4000/posts";
 
   constructor(private http: HttpClient) { }
 
@@ -21,6 +23,17 @@ export class FacebookService {
 
   public AdminLogIn(username, password) {
     return this.http.post<any>(this.login_url, { username, password });
+  }
+
+  public addPost(title,content) {
+    return this.http.post<any>(this.post_url,{title,content});
+  }
+
+
+  public getPost(details) {
+    console.log(details);
+    return this.http.post<any>(this.get_url,details);
+   
   }
 
   public Admin(username) {
